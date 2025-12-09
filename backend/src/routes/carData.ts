@@ -328,7 +328,7 @@ router.get("/profile/:make/:model/:year", async (req, res) => {
     const zip = (req.query.zip as string) || undefined;
     const radius = req.query.radius ? parseInt(req.query.radius as string) : undefined;
 
-    // Fetch all data in parallel
+    // Fetch all data in parallel (first pass with zip/radius if provided)
     const [safetyData, insights, marketStats, listings] = await Promise.all([
       nhtsa.getVehicleData(make, model, yearNum),
       carInsights.getCarInsights(make, model, yearNum),
@@ -343,6 +343,20 @@ router.get("/profile/:make/:model/:year", async (req, res) => {
       }),
     ]);
 
+    // If we got zero listings with the provided zip/radius, try a fallback (no zip/radius)
+    let listingResult = listings;
+    if ((listings?.total || 0) === 0 && zip) {
+      const fallback = await marketcheck.searchListings({
+        make,
+        model,
+        year: yearNum,
+        rows: 10,
+      });
+      if ((fallback?.total || 0) > 0) {
+        listingResult = fallback;
+      }
+    }
+
     res.json({
       make,
       model,
@@ -350,8 +364,8 @@ router.get("/profile/:make/:model/:year", async (req, res) => {
       safety: safetyData,
       insights,
       marketStats,
-      sampleListings: listings.listings,
-      totalListings: listings.total,
+      sampleListings: listingResult.listings,
+      totalListings: listingResult.total,
     });
   } catch (error) {
     console.error("Error getting car profile:", error);
