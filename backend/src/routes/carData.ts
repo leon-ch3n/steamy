@@ -327,6 +327,8 @@ router.get("/profile/:make/:model/:year", async (req, res) => {
     const yearNum = parseInt(year);
     const zip = (req.query.zip as string) || undefined;
     const radius = req.query.radius ? parseInt(req.query.radius as string) : undefined;
+    const city = (req.query.city as string) || undefined;
+    const state = (req.query.state as string) || undefined;
 
     // Fetch all data in parallel (first pass with zip/radius if provided)
     const [safetyData, insights, marketStats, listings] = await Promise.all([
@@ -340,20 +342,26 @@ router.get("/profile/:make/:model/:year", async (req, res) => {
         rows: 10,
         zip,
         radius: radius ?? 50,
+        city,
+        state,
       }),
     ]);
 
-    // If we got zero listings with the provided zip/radius, try a fallback (no zip/radius)
+    // If zero listings with provided location, widen radius (keep location) up to 200 miles before giving up
     let listingResult = listings;
-    if ((listings?.total || 0) === 0 && zip) {
-      const fallback = await marketcheck.searchListings({
+    if ((listings?.total || 0) === 0 && (zip || city || state)) {
+      const widened = await marketcheck.searchListings({
         make,
         model,
         year: yearNum,
         rows: 10,
+        zip,
+        city,
+        state,
+        radius: Math.max(radius ?? 50, 200),
       });
-      if ((fallback?.total || 0) > 0) {
-        listingResult = fallback;
+      if ((widened?.total || 0) > 0) {
+        listingResult = widened;
       }
     }
 
