@@ -4,10 +4,10 @@
  */
 
 import { Router } from "express";
-import * as nhtsa from "../services/nhtsa";
-import * as marketcheck from "../services/marketcheck";
-import * as carInsights from "../services/carInsights";
-import { getCarRecommendations } from "../services/carRecommendations";
+import * as nhtsa from "../services/nhtsa.js";
+import * as marketcheck from "../services/marketcheck.js";
+import * as carInsights from "../services/carInsights.js";
+import { getCarRecommendations } from "../services/carRecommendations.js";
 import OpenAI from "openai";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
