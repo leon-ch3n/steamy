@@ -6,6 +6,7 @@ import { ListingDetailDrawer } from "../components/car/ListingDetailDrawer";
 import { useSearchParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { getPreferences } from "../lib/supabase";
+import { apiFetch } from "../lib/api";
 
 interface CarProfileData {
   make: string;
@@ -129,7 +130,7 @@ export const CarProfile = () => {
       setError(null);
       
       try {
-        const response = await fetch(`/api/car/profile/${encodeURIComponent(make)}/${encodeURIComponent(model)}/${year}?${new URLSearchParams({
+        const response = await apiFetch(`/api/car/profile/${encodeURIComponent(make)}/${encodeURIComponent(model)}/${year}?${new URLSearchParams({
           ...(zip ? { zip } : {}),
           radius: radius.toString(),
         }).toString()}`);

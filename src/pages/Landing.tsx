@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
+import { apiFetch } from "../lib/api";
 
 const suggestions = [
   "I'm a mom of 4 and need a reliable SUV under $35k",
@@ -30,7 +31,7 @@ export const Landing = () => {
     setLoading(true);
     
     try {
-      const response = await fetch("/api/follow-up", {
+      const response = await apiFetch("/api/follow-up", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: searchQuery }),

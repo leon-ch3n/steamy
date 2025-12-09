@@ -3,6 +3,7 @@ import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { useAuth } from "../contexts/AuthContext";
 import { saveSearch } from "../lib/supabase";
+import { apiFetch } from "../lib/api";
 
 interface CarRecommendation {
   name: string;
@@ -62,7 +63,7 @@ export const Results = () => {
 
     const fetchRecommendations = async () => {
       try {
-        const response = await fetch("/api/car/recommendations", {
+        const response = await apiFetch("/api/car/recommendations", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ query }),

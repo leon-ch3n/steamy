@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { apiFetch } from "../../lib/api";
 
 interface VehicleHistoryTabProps {
   make: string;
@@ -65,7 +66,7 @@ export const VehicleHistoryTab = ({ make, model, year, vin, safety }: VehicleHis
     setError(null);
 
     try {
-      const response = await fetch(`/api/car/history/${vinToFetch}`);
+      const response = await apiFetch(`/api/car/history/${vinToFetch}`);
       if (!response.ok) throw new Error("Failed to fetch vehicle history");
       const data = await response.json();
       setHistory(data);

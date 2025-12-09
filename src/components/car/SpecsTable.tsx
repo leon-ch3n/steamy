@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { apiFetch } from "../../lib/api";
 
 interface Specs {
   make: string;
@@ -33,7 +34,7 @@ export const SpecsTable = ({ make, model, year, vin }: SpecsTableProps) => {
     // Otherwise, we'd need a different endpoint or show generic info
     if (vin) {
       setLoading(true);
-      fetch(`/api/car/vin/${vin}`)
+      apiFetch(`/api/car/vin/${vin}`)
         .then(res => res.json())
         .then(data => setSpecs(data))
         .catch(console.error)

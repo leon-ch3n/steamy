@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { apiFetch } from "../../lib/api";
 
 interface ResearchTabProps {
   make: string;
@@ -57,7 +58,7 @@ export const ResearchTab = ({ make, model, year, insights }: ResearchTabProps) =
   const fetchVideos = async () => {
     setLoadingVideos(true);
     try {
-      const response = await fetch(`/api/research/youtube/${make}/${model}/${year}`);
+      const response = await apiFetch(`/api/research/youtube/${make}/${model}/${year}`);
       if (response.ok) {
         const data = await response.json();
         setVideos(data.videos);
@@ -76,7 +77,7 @@ export const ResearchTab = ({ make, model, year, insights }: ResearchTabProps) =
   const fetchForumInsights = async () => {
     setLoadingForums(true);
     try {
-      const response = await fetch(`/api/research/forums/${make}/${model}/${year}`);
+      const response = await apiFetch(`/api/research/forums/${make}/${model}/${year}`);
       if (response.ok) {
         const data = await response.json();
         setForumInsights(data);

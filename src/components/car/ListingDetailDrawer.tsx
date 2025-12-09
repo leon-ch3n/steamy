@@ -4,6 +4,7 @@ import { ResearchTab } from "./ResearchTab";
 import { FinancingCalculator } from "./FinancingCalculator";
 import { useAuth } from "../../contexts/AuthContext";
 import { saveCar } from "../../lib/supabase";
+import { apiFetch } from "../../lib/api";
 
 interface Listing {
   id: string;
@@ -64,7 +65,7 @@ export const ListingDetailDrawer = ({ listing, make, model, year, onClose }: Pro
   const scoreListing = async (data: Listing) => {
     setScoring(true);
     try {
-      const resp = await fetch("/api/car/listing/score", {
+      const resp = await apiFetch("/api/car/listing/score", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ listing: data }),
