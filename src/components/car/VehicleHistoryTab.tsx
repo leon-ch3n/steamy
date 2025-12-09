@@ -86,14 +86,14 @@ export const VehicleHistoryTab = ({ make, model, year, vin, safety }: VehicleHis
       {
         date: `${year}-03-15`,
         event: "Original Purchase",
-        type: "purchase",
+        type: "purchase" as const,
         details: `New vehicle purchased from ${make} dealer`,
         location: "Los Angeles, CA",
       },
       {
         date: `${year}-09-01`,
         event: "First Service",
-        type: "service",
+        type: "service" as const,
         details: "Oil change, tire rotation, multi-point inspection",
         location: "Los Angeles, CA",
       },
@@ -133,7 +133,7 @@ export const VehicleHistoryTab = ({ make, model, year, vin, safety }: VehicleHis
       {
         date: new Date().toISOString().split("T")[0],
         event: "Listed for Sale",
-        type: "other",
+        type: "other" as const,
         details: "Vehicle listed on marketplace",
       },
     ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
