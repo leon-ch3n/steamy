@@ -22,7 +22,7 @@ app.use("/api/car/history", vehicleHistoryRouter);
 
 // Health check
 app.get("/health", (_req, res) => {
-  res.json({ status: "ok" });
+  res.json({ status: "ok." });
 });
 
 app.listen(PORT, () => {
