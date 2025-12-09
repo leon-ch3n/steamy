@@ -80,7 +80,7 @@ export const CarProfile = () => {
   const [data, setData] = useState<CarProfileData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedListing, setSelectedListing] = useState<typeof data extends { sampleListings: (infer T)[] } ? T : never | null>(null);
+  const [selectedListing, setSelectedListing] = useState<any>(null);
   const [zip, setZip] = useState<string | undefined>(searchParams.get("zip") || undefined);
   const [radius, setRadius] = useState<number>(parseInt(searchParams.get("radius") || "50"));
   const [prefsLoaded, setPrefsLoaded] = useState(false);
@@ -146,28 +146,6 @@ export const CarProfile = () => {
   }, [make, model, year, zip, radius, prefsLoaded]);
   // no location UI on results; just honor any query params initially
 
-  const handleGeocode = async () => {
-    if (!locationQuery.trim()) return;
-    setGeoStatus("Looking up location...");
-    try {
-      const resp = await fetch(`/api/car/places/geocode?${new URLSearchParams({ query: locationQuery.trim() })}`);
-      const data = await resp.json();
-      if (!resp.ok) {
-        setGeoStatus(data.error || "Location not found");
-        return;
-      }
-      if (data.postalCode) {
-        setZip(data.postalCode);
-        setGeoStatus(`Found ${data.formattedAddress || data.city || data.postalCode}`);
-      } else {
-        setGeoStatus("No postal code found for that location");
-      }
-    } catch (err) {
-      console.error(err);
-      setGeoStatus("Error looking up location");
-    }
-  };
-
   if (!make || !model || !year) {
     return (
       <div className="min-h-screen gradient-bg">
@@ -188,7 +166,7 @@ export const CarProfile = () => {
     }).format(price);
   };
 
-  const handleSelectListing = (listing: typeof selectedListing) => {
+  const handleSelectListing = (listing: any) => {
     setSelectedListing(listing);
   };
 

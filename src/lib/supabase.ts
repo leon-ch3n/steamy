@@ -63,7 +63,7 @@ export async function getSearchHistory(userId: string): Promise<SearchHistory[]>
   return data || [];
 }
 
-export async function saveCar(userId: string, carName: string, carData: Record<string, unknown>, note?: string) {
+export async function saveCar(userId: string, carName: string, carData: any, note?: string) {
   const { data, error } = await supabase
     .from('saved_cars')
     .insert({ user_id: userId, car_name: carName, car_data: carData, note })

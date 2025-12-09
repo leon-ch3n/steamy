@@ -82,6 +82,62 @@ export const VehicleHistoryTab = ({ make, model, year, vin, safety }: VehicleHis
     const currentYear = new Date().getFullYear();
     const carAge = currentYear - year;
     
+    const timeline: VehicleHistory["timeline"] = [
+      {
+        date: `${year}-03-15`,
+        event: "Original Purchase",
+        type: "purchase",
+        details: `New vehicle purchased from ${make} dealer`,
+        location: "Los Angeles, CA",
+      },
+      {
+        date: `${year}-09-01`,
+        event: "First Service",
+        type: "service",
+        details: "Oil change, tire rotation, multi-point inspection",
+        location: "Los Angeles, CA",
+      },
+      ...(year < currentYear - 1
+        ? [
+            {
+              date: `${year + 1}-03-15`,
+              event: "Annual Service",
+              type: "service" as const,
+              details: "15,000 mile service, brake inspection",
+              location: "Los Angeles, CA",
+            },
+          ]
+        : []),
+      ...(year < currentYear - 2
+        ? [
+            {
+              date: `${year + 2}-01-10`,
+              event: "Ownership Transfer",
+              type: "title" as const,
+              details: "Vehicle sold to second owner",
+              location: "San Diego, CA",
+            },
+          ]
+        : []),
+      ...(safety.recallCount > 0
+        ? [
+            {
+              date: `${Math.min(year + 1, currentYear)}-06-15`,
+              event: "Recall Service Completed",
+              type: "recall" as const,
+              details: safety.recalls[0]?.component || "Manufacturer recall addressed",
+              location: "San Diego, CA",
+            },
+          ]
+        : []),
+      {
+        date: new Date().toISOString().split("T")[0],
+        event: "Listed for Sale",
+        type: "other",
+        details: "Vehicle listed on marketplace",
+      },
+    ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
     return {
       vin,
       titleInfo: {
@@ -92,49 +148,7 @@ export const VehicleHistoryTab = ({ make, model, year, vin, safety }: VehicleHis
       ownerCount: Math.min(Math.floor(carAge / 3) + 1, 4),
       accidents: Math.random() > 0.8 ? 1 : 0,
       titleIssues: [],
-      timeline: [
-        {
-          date: `${year}-03-15`,
-          event: "Original Purchase",
-          type: "purchase",
-          details: `New vehicle purchased from ${make} dealer`,
-          location: "Los Angeles, CA",
-        },
-        {
-          date: `${year}-09-01`,
-          event: "First Service",
-          type: "service",
-          details: "Oil change, tire rotation, multi-point inspection",
-          location: "Los Angeles, CA",
-        },
-        ...(year < currentYear - 1 ? [{
-          date: `${year + 1}-03-15`,
-          event: "Annual Service",
-          type: "service" as const,
-          details: "15,000 mile service, brake inspection",
-          location: "Los Angeles, CA",
-        }] : []),
-        ...(year < currentYear - 2 ? [{
-          date: `${year + 2}-01-10`,
-          event: "Ownership Transfer",
-          type: "title" as const,
-          details: "Vehicle sold to second owner",
-          location: "San Diego, CA",
-        }] : []),
-        ...(safety.recallCount > 0 ? [{
-          date: `${Math.min(year + 1, currentYear)}-06-15`,
-          event: "Recall Service Completed",
-          type: "recall" as const,
-          details: safety.recalls[0]?.component || "Manufacturer recall addressed",
-          location: "San Diego, CA",
-        }] : []),
-        {
-          date: new Date().toISOString().split("T")[0],
-          event: "Listed for Sale",
-          type: "other",
-          details: "Vehicle listed on marketplace",
-        },
-      ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
+      timeline,
     };
   };
 
