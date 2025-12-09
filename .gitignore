@@ -1,5 +1,5 @@
-node_modules
-dist
+node_modules/
+dist/
 .env
 .env.local
 .env.*.local
@@ -9,3 +9,5 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 .env.local
+backend/.env.local
+backend/.env
