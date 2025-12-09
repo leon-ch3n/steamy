@@ -83,8 +83,6 @@ export const CarProfile = () => {
   const [selectedListing, setSelectedListing] = useState<any>(null);
   const [zip, setZip] = useState<string | undefined>(searchParams.get("zip") || undefined);
   const [radius, setRadius] = useState<number>(parseInt(searchParams.get("radius") || "50"));
-  const [city, setCity] = useState<string | undefined>(undefined);
-  const [state, setState] = useState<string | undefined>(undefined);
   const [prefsLoaded, setPrefsLoaded] = useState(false);
 
   // Load user preferences for location (zip/radius) once, then fetch profile
@@ -97,28 +95,18 @@ export const CarProfile = () => {
           if (prefs) {
             if (prefs.zip_code) setZip(prefs.zip_code);
             if (prefs.search_radius) setRadius(prefs.search_radius);
-            if (prefs.city) setCity(prefs.city);
-            if (prefs.state) setState(prefs.state);
           } else {
             // fallback to query params if present
             const qpZip = searchParams.get("zip");
             const qpRadius = searchParams.get("radius");
-            const qpCity = searchParams.get("city");
-            const qpState = searchParams.get("state");
             if (qpZip) setZip(qpZip);
             if (qpRadius) setRadius(parseInt(qpRadius) || 50);
-            if (qpCity) setCity(qpCity);
-            if (qpState) setState(qpState);
           }
         } else {
           const qpZip = searchParams.get("zip");
           const qpRadius = searchParams.get("radius");
-          const qpCity = searchParams.get("city");
-          const qpState = searchParams.get("state");
           if (qpZip) setZip(qpZip);
           if (qpRadius) setRadius(parseInt(qpRadius) || 50);
-          if (qpCity) setCity(qpCity);
-          if (qpState) setState(qpState);
         }
       } catch (err) {
         console.error("Error loading preferences:", err);
@@ -140,8 +128,6 @@ export const CarProfile = () => {
         const response = await fetch(`/api/car/profile/${encodeURIComponent(make)}/${encodeURIComponent(model)}/${year}?${new URLSearchParams({
           ...(zip ? { zip } : {}),
           radius: radius.toString(),
-          ...(city ? { city } : {}),
-          ...(state ? { state } : {}),
         }).toString()}`);
         if (!response.ok) {
           throw new Error("Failed to fetch car profile");
