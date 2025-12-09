@@ -61,6 +61,10 @@ interface CarProfileData {
     exteriorColor: string;
     sellerCity: string;
     sellerState: string;
+    sellerZip?: string;
+    dealerLat?: number;
+    dealerLng?: number;
+    distanceMiles?: number;
     vdpUrl: string;
     photoUrls: string[];
     trim: string;

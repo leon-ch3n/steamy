@@ -8,6 +8,10 @@ interface Listing {
   exteriorColor: string;
   sellerCity: string;
   sellerState: string;
+  sellerZip?: string;
+  dealerLat?: number;
+  dealerLng?: number;
+  distanceMiles?: number;
   vdpUrl: string;
   photoUrls: string[];
   trim: string;
@@ -178,7 +182,12 @@ export const ListingsWidget = ({
 
                 <div className="flex items-center gap-2 mt-2 text-sm text-slate-500">
                   <span>📍</span>
-                  <span>{listing.sellerCity}, {listing.sellerState}</span>
+                  <span>
+                    {listing.sellerCity}, {listing.sellerState}
+                    {listing.distanceMiles !== undefined &&
+                      typeof listing.distanceMiles === "number" &&
+                      ` • ${listing.distanceMiles.toFixed(1)} mi`}
+                  </span>
                 </div>
 
                 {listing.exteriorColor && (

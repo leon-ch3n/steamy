@@ -14,6 +14,8 @@
 import { Router, Request, Response } from "express";
 import { decodeVin, getRecalls } from "../services/nhtsa.js";
 
+
+
 export const vehicleHistoryRouter = Router();
 
 interface VehicleHistory {
@@ -66,18 +68,17 @@ vehicleHistoryRouter.get("/:vin", async (req: Request, res: Response) => {
     // Decode VIN using NHTSA
     let vehicleInfo: VehicleHistory["vehicleInfo"] | null = null;
     try {
-      const decodeResult = await decodeVin(vin);
-      if (decodeResult && decodeResult.length > 0) {
-        const decoded = decodeResult[0];
+      const decoded = await decodeVin(vin);
+      if (decoded) {
         vehicleInfo = {
-          year: parseInt(decoded.ModelYear) || 0,
-          make: decoded.Make || "Unknown",
-          model: decoded.Model || "Unknown",
-          trim: decoded.Trim || "",
-          engine: decoded.DisplacementL ? `${decoded.DisplacementL}L ${decoded.FuelTypePrimary || ""}` : "",
-          transmission: decoded.TransmissionStyle || "",
-          drivetrain: decoded.DriveType || "",
-          bodyType: decoded.BodyClass || "",
+          year: parseInt((decoded as any).ModelYear) || 0,
+          make: (decoded as any).Make || "Unknown",
+          model: (decoded as any).Model || "Unknown",
+          trim: (decoded as any).Trim || "",
+          engine: (decoded as any).DisplacementL ? `${(decoded as any).DisplacementL}L ${(decoded as any).FuelTypePrimary || ""}` : "",
+          transmission: (decoded as any).TransmissionStyle || "",
+          drivetrain: (decoded as any).DriveType || "",
+          bodyType: (decoded as any).BodyClass || "",
         };
       }
     } catch (error) {

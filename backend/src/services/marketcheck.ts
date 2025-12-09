@@ -23,6 +23,10 @@ export interface CarListing {
   sellerName: string;
   sellerCity: string;
   sellerState: string;
+  sellerZip?: string;
+  dealerLat?: number;
+  dealerLng?: number;
+  distanceMiles?: number;
   sellerPhone: string;
   vdpUrl: string;
   photoUrls: string[];
@@ -129,6 +133,14 @@ export async function searchListings(
       sellerName: (l.dealer as Record<string, unknown>)?.name || "",
       sellerCity: (l.dealer as Record<string, unknown>)?.city || "",
       sellerState: (l.dealer as Record<string, unknown>)?.state || "",
+      sellerZip: (l.dealer as Record<string, unknown>)?.zip || "",
+      dealerLat: (l.dealer as Record<string, unknown>)?.latitude || (l.dealer as Record<string, unknown>)?.lat,
+      dealerLng: (l.dealer as Record<string, unknown>)?.longitude || (l.dealer as Record<string, unknown>)?.lng,
+      distanceMiles:
+        (l.dealer as Record<string, unknown>)?.distance ||
+        (l as Record<string, unknown>)?.dealer_distance ||
+        (l as Record<string, unknown>)?.distance ||
+        undefined,
       sellerPhone: (l.dealer as Record<string, unknown>)?.phone || "",
       vdpUrl: l.vdp_url || "",
       photoUrls: (l.media as Record<string, unknown>)?.photo_links || [],

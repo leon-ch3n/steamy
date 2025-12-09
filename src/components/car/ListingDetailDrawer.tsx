@@ -13,6 +13,10 @@ interface Listing {
   exteriorColor: string;
   sellerCity: string;
   sellerState: string;
+  sellerZip?: string;
+  dealerLat?: number;
+  dealerLng?: number;
+  distanceMiles?: number;
   vdpUrl: string;
   photoUrls: string[];
   trim: string;
@@ -108,7 +112,10 @@ export const ListingDetailDrawer = ({ listing, make, model, year, onClose }: Pro
               {listing.trim && <span className="px-3 py-1 bg-white/70 text-slate-600 rounded-full">{listing.trim}</span>}
               <span className="px-3 py-1 bg-white/70 text-slate-600 rounded-full">{listing.miles.toLocaleString()} mi</span>
               {listing.exteriorColor && <span className="px-3 py-1 bg-white/70 text-slate-600 rounded-full">Color: {listing.exteriorColor}</span>}
-              <span className="px-3 py-1 bg-white/70 text-slate-600 rounded-full">📍 {listing.sellerCity}, {listing.sellerState}</span>
+              <span className="px-3 py-1 bg-white/70 text-slate-600 rounded-full">
+                📍 {listing.sellerCity}, {listing.sellerState}
+                {typeof listing.distanceMiles === "number" ? ` • ${listing.distanceMiles.toFixed(1)} mi` : ""}
+              </span>
             </div>
           </div>
           <div className="flex flex-col items-end gap-2">
