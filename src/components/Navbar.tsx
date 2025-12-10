@@ -4,9 +4,8 @@ import { useAuth } from "../contexts/AuthContext";
 import { AuthModal } from "./AuthModal";
 
 const navLinks = [
-  { to: "/#product", label: "Product" },
+  { to: "/", label: "Home" },
   { to: "/how-it-works", label: "How it works" },
-  { to: "/#for-buyers", label: "For buyers" },
   { to: "/about", label: "For partners" },
 ];
 
@@ -40,8 +39,7 @@ export const Navbar = () => {
             {/* Nav Links - Hidden on mobile */}
             <div className="hidden md:flex items-center gap-1">
               {navLinks.map((link) => {
-                const isActive = location.pathname === link.to || 
-                  (link.to.startsWith('/#') && location.pathname === '/');
+                const isActive = location.pathname === link.to;
                 return (
                   <Link
                     key={link.to}
