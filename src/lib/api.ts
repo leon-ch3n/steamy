@@ -1,14 +1,16 @@
-// In production, prefer VITE_API_BASE. If not provided, fall back to current origin.
+// In development, use local backend. In production, use VITE_API_BASE or current origin.
 const ENV_API_BASE = import.meta.env.VITE_API_BASE;
-const RUNTIME_BASE =
-  ENV_API_BASE && ENV_API_BASE.length > 0
-    ? ENV_API_BASE
-    : (typeof window !== "undefined" && import.meta.env.PROD ? window.location.origin : "");
+const IS_DEV = import.meta.env.DEV;
+
+const RUNTIME_BASE = IS_DEV
+  ? "http://localhost:3001"  // Always use local backend in development
+  : (ENV_API_BASE && ENV_API_BASE.length > 0
+      ? ENV_API_BASE
+      : (typeof window !== "undefined" ? window.location.origin : ""));
 
 // Temporary debug: log what base URL the app is using at runtime
-// Remove this after confirming the correct host in production
 if (typeof window !== "undefined") {
-  console.log("API_BASE at runtime:", RUNTIME_BASE || "(empty)");
+  console.log("API_BASE at runtime:", RUNTIME_BASE, IS_DEV ? "(dev mode)" : "(prod mode)");
 }
 
 export function apiFetch(path: string, options?: RequestInit) {

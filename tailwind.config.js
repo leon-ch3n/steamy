@@ -4,7 +4,14 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: [
+          "Inter",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "SF Pro Text",
+          "sans-serif",
+        ],
       },
       colors: {
         primary: "#1e293b",
@@ -29,6 +36,21 @@ export default {
           DEFAULT: "#9333ea",
           hover: "#7e22ce",
           light: "#c084fc",
+        },
+        // Semantic design tokens (mapped to existing colors)
+        surface: {
+          DEFAULT: "#ffffff",
+          muted: "rgba(255, 255, 255, 0.7)",
+          elevated: "#ffffff",
+        },
+        border: {
+          DEFAULT: "rgba(226, 232, 240, 0.5)",
+          muted: "rgba(255, 255, 255, 0.5)",
+        },
+        text: {
+          primary: "#1e293b",
+          secondary: "#64748b",
+          muted: "#94a3b8",
         },
       },
       animation: {
