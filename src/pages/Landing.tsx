@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { Hero } from "../sections/Hero";
@@ -13,12 +14,13 @@ import { useAuth } from "../contexts/AuthContext";
 export const Landing = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   // Handle primary CTA - open auth modal if not signed in, or go to Try AutoMate
   const handleGetStarted = () => {
     if (user) {
       // User is signed in, navigate to Try AutoMate
-      window.location.href = "/try";
+      navigate("/try");
     } else {
       // Show auth modal
       setShowAuthModal(true);
