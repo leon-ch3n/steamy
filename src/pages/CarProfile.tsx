@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { ListingsWidget } from "../components/car/ListingsWidget";
-import { ListingDetailDrawer } from "../components/car/ListingDetailDrawer";
 import { useSearchParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { getPreferences } from "../lib/supabase";
@@ -82,14 +81,17 @@ interface CarProfileData {
 export const CarProfile = () => {
   const { make, model, year } = useParams<{ make: string; model: string; year: string }>();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [data, setData] = useState<CarProfileData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedListing, setSelectedListing] = useState<any>(null);
   const [zip, setZip] = useState<string | undefined>(searchParams.get("zip") || undefined);
   const [radius, setRadius] = useState<number>(parseInt(searchParams.get("radius") || "50"));
   const [prefsLoaded, setPrefsLoaded] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [allListings, setAllListings] = useState<CarProfileData["sampleListings"]>([]);
+  const [hasMoreListings, setHasMoreListings] = useState(false);
 
   useEffect(() => {
     const loadPrefs = async () => {
@@ -137,6 +139,8 @@ export const CarProfile = () => {
         }
         const profileData = await response.json();
         setData(profileData);
+        setAllListings(profileData.sampleListings || []);
+        setHasMoreListings((profileData.sampleListings?.length || 0) < profileData.totalListings);
       } catch (err) {
         console.error("Error fetching car profile:", err);
         setError("Failed to load car profile. Please try again.");
@@ -170,14 +174,34 @@ export const CarProfile = () => {
   };
 
   const handleSelectListing = (listing: any) => {
-    setSelectedListing(listing);
-    // Scroll to the detail section after a short delay to allow render
-    setTimeout(() => {
-      const detailSection = document.getElementById('listing-detail');
-      if (detailSection) {
-        detailSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Navigate to dedicated listing detail page
+    navigate(`/car/${make}/${model}/${year}/listing/${listing.id}`, {
+      state: { listing }
+    });
+  };
+
+  const handleLoadMore = async () => {
+    if (!make || !model || !year || loadingMore) return;
+    
+    setLoadingMore(true);
+    try {
+      const response = await apiFetch(`/api/car/more-listings/${encodeURIComponent(make)}/${encodeURIComponent(model)}/${year}?${new URLSearchParams({
+        ...(zip ? { zip } : {}),
+        radius: radius.toString(),
+        start: allListings.length.toString(),
+        rows: "10",
+      }).toString()}`);
+      
+      if (response.ok) {
+        const result = await response.json();
+        setAllListings(prev => [...prev, ...result.listings]);
+        setHasMoreListings(result.hasMore);
       }
-    }, 100);
+    } catch (err) {
+      console.error("Error loading more listings:", err);
+    } finally {
+      setLoadingMore(false);
+    }
   };
 
   return (
@@ -293,32 +317,25 @@ export const CarProfile = () => {
               {/* Search note banner if location was widened/fallback */}
               {data.searchNote && (
                 <div className="glass-card p-4 mb-4 flex items-center gap-3 border-l-4 border-amber-400">
-                  <span className="text-amber-500">📍</span>
+                  <svg className="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
                   <p className="text-sm text-slate-600">{data.searchNote}</p>
                 </div>
               )}
               <ListingsWidget 
-                listings={data.sampleListings} 
+                listings={allListings.length > 0 ? allListings : data.sampleListings} 
                 totalListings={data.totalListings}
                 make={make}
                 model={model}
                 year={parseInt(year)}
                 onSelectListing={handleSelectListing}
+                onLoadMore={handleLoadMore}
+                loadingMore={loadingMore}
+                hasMore={hasMoreListings}
               />
             </FadeIn>
-
-            {/* Inline Listing Detail (not overlay) */}
-            {selectedListing && (
-              <div id="listing-detail">
-                <ListingDetailDrawer
-                  listing={selectedListing}
-                  make={make}
-                  model={model}
-                  year={parseInt(year)}
-                  onClose={() => setSelectedListing(null)}
-                />
-              </div>
-            )}
           </div>
         ) : null}
       </main>

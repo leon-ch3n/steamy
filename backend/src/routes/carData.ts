@@ -318,6 +318,41 @@ Respond as:
 });
 
 /**
+ * GET /api/car/more-listings/:make/:model/:year
+ * Get more listings with pagination support
+ */
+router.get("/more-listings/:make/:model/:year", async (req, res) => {
+  try {
+    const { make, model, year } = req.params;
+    const yearNum = parseInt(year);
+    const zip = (req.query.zip as string) || undefined;
+    const radius = req.query.radius ? parseInt(req.query.radius as string) : 50;
+    const start = req.query.start ? parseInt(req.query.start as string) : 0;
+    const rows = req.query.rows ? parseInt(req.query.rows as string) : 10;
+
+    console.log(`[MoreListings] Fetching listings for ${make} ${model} ${year}, start=${start}, rows=${rows}`);
+
+    const result = await marketcheck.searchListings({
+      make,
+      model,
+      year: yearNum,
+      rows,
+      start,
+      ...(zip ? { zip, radius } : {}),
+    });
+
+    res.json({
+      listings: result.listings,
+      total: result.total,
+      hasMore: start + rows < result.total,
+    });
+  } catch (error) {
+    console.error("Error getting more listings:", error);
+    res.status(500).json({ error: "Failed to get more listings" });
+  }
+});
+
+/**
  * GET /api/car/profile/:make/:model/:year
  * Get complete car profile (aggregates all data sources)
  */

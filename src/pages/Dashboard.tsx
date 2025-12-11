@@ -41,23 +41,117 @@ const mockInsights = [
     id: "1",
     title: "Best Time to Buy",
     content: "SUV inventory is high right now—dealers are more likely to negotiate.",
-    icon: "📈",
+    icon: "trending",
   },
   {
     id: "2",
     title: "Price Trend",
     content: "RAV4 Hybrid prices have dropped 4% over the past 30 days in your area.",
-    icon: "💰",
+    icon: "price",
   },
   {
     id: "3",
     title: "Depreciation Alert",
     content: "The Tucson Hybrid holds value well—expect 15% depreciation in year 1.",
-    icon: "📊",
+    icon: "chart",
   },
 ];
 
 type Tab = "history" | "saved" | "alerts" | "preferences" | "insights";
+
+// Tab icon component
+const TabIcon = ({ type }: { type: string }) => {
+  const iconClass = "w-4 h-4";
+  switch (type) {
+    case "history":
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      );
+    case "saved":
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+        </svg>
+      );
+    case "alerts":
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+        </svg>
+      );
+    case "preferences":
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      );
+    case "insights":
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
+
+// Alert icon component
+const AlertIcon = ({ type }: { type: string }) => {
+  const iconClass = "w-5 h-5";
+  switch (type) {
+    case "price_drop":
+      return (
+        <svg className={`${iconClass} text-green-600`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      );
+    case "new_listing":
+      return (
+        <svg className={`${iconClass} text-blue-600`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        </svg>
+      );
+    case "market":
+      return (
+        <svg className={`${iconClass} text-purple-600`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
+
+// Insight icon component
+const InsightIcon = ({ type }: { type: string }) => {
+  const iconClass = "w-6 h-6 text-mauve";
+  switch (type) {
+    case "trending":
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        </svg>
+      );
+    case "price":
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      );
+    case "chart":
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
 
 export const Dashboard = () => {
   const { user, loading: authLoading } = useAuth();
@@ -81,6 +175,7 @@ export const Dashboard = () => {
     search_radius: 50,
   });
   const [savingPrefs, setSavingPrefs] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
   // Fetch user data when authenticated
   useEffect(() => {
@@ -171,11 +266,11 @@ export const Dashboard = () => {
   };
 
   const tabs = [
-    { id: "history" as Tab, label: "Search History", icon: "🕐" },
-    { id: "saved" as Tab, label: "Saved Cars", icon: "⭐" },
-    { id: "alerts" as Tab, label: "Alerts", icon: "🔔" },
-    { id: "preferences" as Tab, label: "Preferences", icon: "⚙️" },
-    { id: "insights" as Tab, label: "Market Insights", icon: "📊" },
+    { id: "history" as Tab, label: "Search History", icon: "history" },
+    { id: "saved" as Tab, label: "Saved Cars", icon: "saved" },
+    { id: "alerts" as Tab, label: "Alerts", icon: "alerts" },
+    { id: "preferences" as Tab, label: "Preferences", icon: "preferences" },
+    { id: "insights" as Tab, label: "Market Insights", icon: "insights" },
   ];
 
   // Show sign-in prompt if not authenticated
@@ -251,7 +346,7 @@ export const Dashboard = () => {
                   : "bg-white/50 text-slate-600 hover:bg-white/80"
               }`}
             >
-              <span>{tab.icon}</span>
+              <TabIcon type={tab.icon} />
               {tab.label}
               {tab.id === "alerts" && (
                 <span className="bg-gradient-to-r from-mauve to-thistle text-primary text-xs px-2 py-0.5 rounded-full">
@@ -333,12 +428,19 @@ export const Dashboard = () => {
                       style={{ animationDelay: `${index * 50}ms` }}
                     >
                       <div className="flex items-start justify-between mb-3">
-                        <span className="text-4xl">🚗</span>
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-mauve/20 to-cyan-light/20 flex items-center justify-center">
+                          <svg className="w-6 h-6 text-mauve" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                          </svg>
+                        </div>
                         <button 
                           onClick={() => handleRemoveCar(car.id)}
                           className="text-yellow-500 hover:text-yellow-600 transition-colors"
                         >
-                          ⭐
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                          </svg>
                         </button>
                       </div>
                       <h3 className="font-semibold text-primary mb-1">{car.car_name}</h3>
@@ -382,7 +484,7 @@ export const Dashboard = () => {
                             setNoteText(car.note || "");
                           }}
                         >
-                          📝 {car.note}
+                          {car.note}
                         </div>
                       ) : (
                         <button 
@@ -431,9 +533,7 @@ export const Dashboard = () => {
                         ? "bg-blue-100"
                         : "bg-purple-100"
                     }`}>
-                      {alert.type === "price_drop" && "💰"}
-                      {alert.type === "new_listing" && "🆕"}
-                      {alert.type === "market" && "📈"}
+                      <AlertIcon type={alert.type} />
                     </div>
                     <div className="flex-1">
                       <p className="text-primary font-medium">{alert.message}</p>
@@ -446,7 +546,10 @@ export const Dashboard = () => {
               <div className="glass-card p-5 border-2 border-dashed border-slate-200">
                 <h3 className="font-medium text-primary mb-2">Set Up More Alerts</h3>
                 <p className="text-sm text-slate-500 mb-3">Get notified when prices drop or new vehicles match your criteria.</p>
-                <button className="text-sm font-medium gradient-text">
+                <button 
+                  onClick={() => setShowComingSoon(true)}
+                  className="text-sm font-medium gradient-text hover:underline"
+                >
                   Configure Alerts →
                 </button>
               </div>
@@ -469,7 +572,7 @@ export const Dashboard = () => {
 
               {/* Location Settings */}
               <div className="glass-card p-6">
-                <h3 className="font-semibold text-primary mb-4">📍 Location & Search Radius</h3>
+                <h3 className="font-semibold text-primary mb-4">Location & Search Radius</h3>
                 <div className="grid md:grid-cols-3 gap-4 mb-4">
                   <div>
                     <label className="text-sm text-slate-500 mb-1 block">City</label>
@@ -530,7 +633,7 @@ export const Dashboard = () => {
 
               {/* Budget Range */}
               <div className="glass-card p-6">
-                <h3 className="font-semibold text-primary mb-4">💰 Budget Range</h3>
+                <h3 className="font-semibold text-primary mb-4">Budget Range</h3>
                 <div className="flex items-center gap-4">
                   <div className="flex-1">
                     <label className="text-sm text-slate-500 mb-1 block">Minimum</label>
@@ -556,7 +659,7 @@ export const Dashboard = () => {
 
               {/* Body Types */}
               <div className="glass-card p-6">
-                <h3 className="font-semibold text-primary mb-4">🚗 Preferred Body Types</h3>
+                <h3 className="font-semibold text-primary mb-4">Preferred Body Types</h3>
                 <div className="flex flex-wrap gap-2">
                   {["SUV", "Crossover", "Sedan", "Truck", "Minivan", "Coupe", "Hatchback"].map((type) => (
                     <button
@@ -582,7 +685,7 @@ export const Dashboard = () => {
 
               {/* Fuel Types */}
               <div className="glass-card p-6">
-                <h3 className="font-semibold text-primary mb-4">⛽ Fuel Preferences</h3>
+                <h3 className="font-semibold text-primary mb-4">Fuel Preferences</h3>
                 <div className="flex flex-wrap gap-2">
                   {["Gas", "Hybrid", "Electric", "Plug-in Hybrid", "Diesel"].map((type) => (
                     <button
@@ -608,7 +711,7 @@ export const Dashboard = () => {
 
               {/* Must-Haves */}
               <div className="glass-card p-6">
-                <h3 className="font-semibold text-primary mb-4">✅ Must-Have Features</h3>
+                <h3 className="font-semibold text-primary mb-4">Must-Have Features</h3>
                 <div className="flex flex-wrap gap-2">
                   {(preferences.must_haves || []).map((feature) => (
                     <span key={feature} className="px-3 py-1.5 bg-green-100 text-green-700 rounded-lg text-sm">
@@ -623,7 +726,7 @@ export const Dashboard = () => {
 
               {/* Dealbreakers */}
               <div className="glass-card p-6">
-                <h3 className="font-semibold text-primary mb-4">❌ Dealbreakers</h3>
+                <h3 className="font-semibold text-primary mb-4">Dealbreakers</h3>
                 <div className="flex flex-wrap gap-2">
                   {(preferences.dealbreakers || []).map((item) => (
                     <span key={item} className="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg text-sm">
@@ -653,8 +756,8 @@ export const Dashboard = () => {
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-mauve/20 to-cyan-light/20 flex items-center justify-center text-2xl">
-                      {insight.icon}
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-mauve/20 to-cyan-light/20 flex items-center justify-center">
+                      <InsightIcon type={insight.icon} />
                     </div>
                     <div>
                       <h3 className="font-semibold text-primary mb-1">{insight.title}</h3>
@@ -683,6 +786,33 @@ export const Dashboard = () => {
           )}
         </div>
       </main>
+
+      {/* Coming Soon Popup */}
+      {showComingSoon && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-black/30 backdrop-blur-sm"
+            onClick={() => setShowComingSoon(false)}
+          />
+          <div className="relative glass-card p-8 max-w-md w-full text-center animate-fade-in">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-mauve/20 to-cyan-light/20 flex items-center justify-center">
+              <svg className="w-8 h-8 text-mauve" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-primary mb-2">Coming Soon</h3>
+            <p className="text-slate-600 mb-6">
+              Custom alert configuration is on its way. Soon you'll be able to set up personalized notifications for price drops, new listings, and market changes.
+            </p>
+            <button
+              onClick={() => setShowComingSoon(false)}
+              className="px-6 py-3 bg-gradient-to-r from-mauve to-cyan-light text-primary font-semibold rounded-xl hover:shadow-lg transition-all"
+            >
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

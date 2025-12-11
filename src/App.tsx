@@ -7,6 +7,7 @@ import { AboutUs } from "./pages/AboutUs";
 import { Contact } from "./pages/Contact";
 import { Dashboard } from "./pages/Dashboard";
 import { CarProfile } from "./pages/CarProfile";
+import { ListingDetail } from "./pages/ListingDetail";
 import { TryAutoMate } from "./pages/TryAutoMate";
 
 /**
@@ -28,6 +29,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/try" element={<TryAutoMate />} />
             <Route path="/car/:make/:model/:year" element={<CarProfile />} />
+            <Route path="/car/:make/:model/:year/listing/:listingId" element={<ListingDetail />} />
           </Routes>
         </div>
       </BrowserRouter>
