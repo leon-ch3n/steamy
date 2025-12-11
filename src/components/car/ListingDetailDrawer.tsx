@@ -43,8 +43,7 @@ interface DealScore {
 }
 
 /**
- * ListingDetailDrawer - Now renders as an inline expandable panel instead of overlay.
- * Expands in-place below the listing cards, pushing content down.
+ * ListingDetailDrawer - Fullscreen modal overlay for listing details.
  */
 export const ListingDetailDrawer = ({ listing, make, model, year, onClose }: Props) => {
   const [activeTab, setActiveTab] = useState<DetailTab>("overview");
@@ -58,7 +57,12 @@ export const ListingDetailDrawer = ({ listing, make, model, year, onClose }: Pro
     if (listing) {
       setActiveTab("overview");
       scoreListing(listing);
+      // Lock body scroll when modal is open
+      document.body.style.overflow = 'hidden';
     }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
   }, [listing]);
 
   const coverPhoto = useMemo(

@@ -46,8 +46,8 @@ export const Hero = ({ children, onPrimaryCTA, onSecondaryCTA }: HeroProps) => {
               <span className="text-primary font-medium">You describe your life. Your agent handles the rest.</span>
             </p>
             
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 justify-center lg:justify-start mb-8">
+            {/* CTA */}
+            <div className="flex justify-center lg:justify-start mb-8">
               <button
                 onClick={onPrimaryCTA}
                 className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold bg-gradient-to-r from-mauve to-cyan-light text-primary hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2"
@@ -56,16 +56,6 @@ export const Hero = ({ children, onPrimaryCTA, onSecondaryCTA }: HeroProps) => {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
-              </button>
-              <button
-                onClick={onSecondaryCTA}
-                className="w-full sm:w-auto px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base font-medium text-slate-600 hover:text-primary hover:bg-white/50 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Watch 60s demo
               </button>
             </div>
             

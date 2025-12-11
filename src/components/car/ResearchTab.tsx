@@ -19,6 +19,25 @@ interface ResearchTabProps {
   } | null;
 }
 
+interface MaintenanceInfo {
+  schedule: Array<{ interval: string; services: string[] }>;
+  commonRepairs: Array<{ item: string; avgCost: string; frequency: string }>;
+  tips: string[];
+}
+
+interface OwnershipCosts {
+  fiveYearTotal: string;
+  breakdown: {
+    depreciation: string;
+    fuel: string;
+    insurance: string;
+    maintenance: string;
+    repairs: string;
+  };
+  comparedToClass: "below" | "average" | "above";
+  notes: string[];
+}
+
 interface YouTubeVideo {
   id: string;
   title: string;
