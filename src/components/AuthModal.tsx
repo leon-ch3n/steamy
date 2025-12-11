@@ -54,28 +54,28 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20">
-      {/* Backdrop - click to close */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Solid backdrop - click to close */}
       <div 
-        className="absolute inset-0 bg-dark-950/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-slate-900/60 backdrop-blur-md"
         onClick={onClose}
       />
       
-      {/* Panel */}
-      <div className="relative surface-elevated p-8 w-full max-w-md mx-4 animate-slide-up">
+      {/* Panel - solid white background */}
+      <div className="relative bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md mx-4 animate-fade-in">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-light-300 hover:text-light-50"
+          className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
-        <h2 className="text-2xl font-bold text-light-50 mb-2">
+        <h2 className="text-2xl font-bold text-primary mb-2">
           {isSignUp ? 'Create Account' : 'Welcome Back'}
         </h2>
-        <p className="text-light-200 mb-6">
+        <p className="text-slate-600 mb-6">
           {isSignUp 
             ? 'Sign up to save your searches and preferences' 
             : 'Sign in to access your saved cars and searches'}
@@ -84,7 +84,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         {/* Google Sign In */}
         <button
           onClick={handleGoogleSignIn}
-          className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-dark-800 border border-dark-600 text-light-50 font-medium hover:bg-dark-700 transition-colors mb-4"
+          className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white border border-slate-200 text-slate-700 font-medium rounded-xl hover:bg-slate-50 hover:shadow-md transition-all mb-4"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -97,33 +97,33 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
         <div className="relative my-6">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-dark-600" />
+            <div className="w-full border-t border-slate-200" />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-4 bg-dark-900 text-light-300">or</span>
+            <span className="px-4 bg-white text-slate-400">or</span>
           </div>
         </div>
 
         {/* Email/Password Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-light-100 mb-1">Email</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 input-dark"
+              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-primary placeholder-slate-400 focus:outline-none focus:border-mauve focus:ring-1 focus:ring-mauve transition-colors"
               placeholder="you@example.com"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-light-100 mb-1">Password</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 input-dark"
+              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-primary placeholder-slate-400 focus:outline-none focus:border-mauve focus:ring-1 focus:ring-mauve transition-colors"
               placeholder="••••••••"
               required
               minLength={6}
@@ -131,22 +131,22 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           </div>
 
           {error && (
-            <p className="text-red-400 text-sm">{error}</p>
+            <p className="text-red-500 text-sm">{error}</p>
           )}
           {message && (
-            <p className="text-green-400 text-sm">{message}</p>
+            <p className="text-green-600 text-sm">{message}</p>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 btn-primary disabled:opacity-50"
+            className="w-full py-3 bg-gradient-to-r from-mauve to-cyan-light text-primary font-semibold rounded-xl hover:shadow-lg transition-all disabled:opacity-50"
           >
             {loading ? 'Loading...' : isSignUp ? 'Create Account' : 'Sign In'}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-light-200">
+        <p className="mt-6 text-center text-sm text-slate-600">
           {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
           <button
             onClick={() => {
@@ -154,7 +154,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               setError('');
               setMessage('');
             }}
-            className="font-medium text-ember hover:text-ember-hover"
+            className="font-medium text-mauve hover:underline"
           >
             {isSignUp ? 'Sign In' : 'Sign Up'}
           </button>
