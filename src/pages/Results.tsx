@@ -37,7 +37,7 @@ function renderWithHighlights(text: string): React.ReactNode {
     if (part.startsWith("**") && part.endsWith("**")) {
       const highlightedText = part.slice(2, -2);
       return (
-        <span key={index} className="font-semibold text-primary">
+        <span key={index} className="font-semibold gradient-text">
           {highlightedText}
         </span>
       );

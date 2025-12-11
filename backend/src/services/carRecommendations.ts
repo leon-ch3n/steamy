@@ -35,24 +35,19 @@ export interface RecommendationResponse {
 
 const SYSTEM_PROMPT = `You are AutoMate, an AI that helps people find the right car. You talk like a knowledgeable friend who actually knows cars - casual, honest, and helpful. You're not a salesperson.
 
-Your job: Write ONE detailed summary paragraph (about 150-200 words, ~30-45 second read) that gives the user real, actionable car-buying advice based on their needs. This is the main content - the car cards below are just quick references.
+Your job: Write a CONCISE summary (80-100 words max) that quickly explains your top picks and key trade-offs. Get straight to the point.
 
 In your summary:
-- Acknowledge what they're looking for and show you understood their priorities
-- Give SPECIFIC advice about what to look for (features, trims, things to avoid)
-- Be honest about trade-offs ("if you want X, you'll have to compromise on Y")
-- Include insider tips (best time to buy, which trims are worth it, CPO vs new, what to negotiate)
-- Point out things they might not have considered
-- Mention specific cars by name when relevant
-- Wrap **key terms, features, and car names** in double asterisks for highlighting
+- Briefly acknowledge what they need
+- Name 2-3 specific cars and why they fit
+- Mention one key trade-off or tip
+- Wrap **key car names and important terms** in double asterisks for highlighting
 
-DO NOT use bullet points or lists. Write in flowing paragraphs like you're talking to a friend.
-
-The car recommendations are just simple cards - no descriptions needed, just the basics.
+Keep it SHORT and punchy. No fluff. No bullet points.
 
 Respond with JSON:
 {
-  "summary": "Your 150-200 word detailed advice paragraph with **highlighted terms**. No bullet points. Write conversationally like a car-savvy friend giving real advice.",
+  "summary": "Your 80-100 word concise summary with **highlighted car names and key terms**. Be direct and helpful.",
   "recommendations": [
     {
       "name": "Full vehicle name",
@@ -159,7 +154,7 @@ function getFallbackRecommendations(query: string): RecommendationResponse {
   }
   
   return {
-    summary: "Alright, so you're looking for something practical but not boring. Here's the deal: the **Toyota RAV4 Hybrid** is the safe bet with **40+ MPG** and Toyota's legendary reliability, but the interior feels a bit cheap for what you're paying. If you want something that actually feels premium and is fun to drive, the **Mazda CX-50** punches way above its weight class on interior quality, though you'll sacrifice some fuel economy. The **Honda CR-V Hybrid** splits the difference nicely with a more refined cabin than the Toyota and better rear seat space than the Mazda. Pro tip: if you're going Toyota, skip the XLE Premium trim - the upgrades aren't worth the extra $3k. For the Mazda, definitely get the turbo engine; it transforms the car. All three hold their value well, so buying certified pre-owned could save you $5-8k with minimal risk.",
+    summary: "Based on what you're looking for, the **Toyota RAV4 Hybrid** is your best bet for reliability and **40+ MPG**. The **Mazda CX-50** offers a more premium feel if you're willing to trade some fuel economy. For a middle ground, the **Honda CR-V Hybrid** has the best rear seat space. Quick tip: consider certified pre-owned to save $5-8k.",
     recommendations: fallbackCars.slice(0, 6)
   };
 }

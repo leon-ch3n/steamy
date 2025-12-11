@@ -275,10 +275,8 @@ export const TryAutoMate = () => {
                 <div key={idx} className="animate-fade-in">
                   {/* Agent question bubble */}
                   <div className="flex gap-3 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-mauve to-thistle flex items-center justify-center flex-shrink-0">
-                      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97c0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1c0 .33.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z"/>
-                      </svg>
+                    <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                      <img src={logoImg} alt="AutoMate" className="w-full h-full object-cover" />
                     </div>
                     <div className="bg-white/70 backdrop-blur-sm rounded-2xl rounded-tl-md px-4 py-3 max-w-[85%]">
                       <p className="text-sm text-slate-700">{turn.question}</p>
@@ -306,10 +304,8 @@ export const TryAutoMate = () => {
           <div className="glass-card p-6 md:p-8 animate-slide-up">
             {/* Agent asking */}
             <div className="flex gap-4 mb-6">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-mauve to-thistle flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97c0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1c0 .33.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z"/>
-                </svg>
+              <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                <img src={logoImg} alt="AutoMate" className="w-full h-full object-cover" />
               </div>
               <div className="flex-1">
                 <p className="text-lg md:text-xl text-primary leading-relaxed">
@@ -397,10 +393,8 @@ export const TryAutoMate = () => {
         {/* Chat Input Card */}
         <div className="glass-card p-6 md:p-8 max-w-3xl mx-auto">
           <div className="flex items-start gap-4 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-mauve to-thistle flex items-center justify-center flex-shrink-0">
-              <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-              </svg>
+            <div className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0">
+              <img src={logoImg} alt="AutoMate" className="w-full h-full object-cover" />
             </div>
             <div className="flex-1">
               <p className="text-sm font-medium text-slate-500 mb-2">Tell your agent what you're looking for</p>

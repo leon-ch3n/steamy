@@ -104,36 +104,36 @@ export const ListingDetailDrawer = ({ listing, make, model, year, onClose }: Pro
   };
 
   return (
-    <div className="surface-elevated animate-expand-down overflow-hidden mt-6">
+    <div className="glass-card animate-expand-down overflow-hidden mt-6">
       {/* Header */}
-      <div className="flex items-start gap-4 p-6 border-b border-dark-700">
+      <div className="flex items-start gap-4 p-6 border-b border-slate-200/50">
         <div className="flex-1">
-          <p className="text-xs uppercase text-light-300 tracking-wide mb-1">Listing Details</p>
-          <h2 className="text-xl font-bold text-light-50 line-clamp-2">{listing.heading}</h2>
+          <p className="text-xs uppercase text-slate-500 tracking-wide mb-1">Listing Details</p>
+          <h2 className="text-xl font-bold text-primary line-clamp-2">{listing.heading}</h2>
           <div className="flex flex-wrap items-center gap-2 mt-3">
-            <span className="badge">{listing.isNew ? "New" : "Used"}</span>
-            {listing.isCertified && <span className="badge-ember">CPO</span>}
-            {listing.trim && <span className="badge">{listing.trim}</span>}
-            <span className="badge">{listing.miles.toLocaleString()} mi</span>
-            {listing.exteriorColor && <span className="badge">{listing.exteriorColor}</span>}
-            <span className="badge">
+            <span className="px-2 py-1 bg-slate-100 border border-slate-200 text-slate-600 text-xs rounded-lg">{listing.isNew ? "New" : "Used"}</span>
+            {listing.isCertified && <span className="px-2 py-1 bg-blue-100 border border-blue-200 text-blue-700 text-xs rounded-lg">CPO</span>}
+            {listing.trim && <span className="px-2 py-1 bg-slate-100 border border-slate-200 text-slate-600 text-xs rounded-lg">{listing.trim}</span>}
+            <span className="px-2 py-1 bg-slate-100 border border-slate-200 text-slate-600 text-xs rounded-lg">{listing.miles.toLocaleString()} mi</span>
+            {listing.exteriorColor && <span className="px-2 py-1 bg-slate-100 border border-slate-200 text-slate-600 text-xs rounded-lg">{listing.exteriorColor}</span>}
+            <span className="px-2 py-1 bg-slate-100 border border-slate-200 text-slate-600 text-xs rounded-lg">
               {listing.sellerCity}, {listing.sellerState}
               {typeof listing.distanceMiles === "number" ? ` • ${listing.distanceMiles.toFixed(1)} mi away` : ""}
             </span>
           </div>
         </div>
         <div className="flex flex-col items-end gap-3">
-          <p className="text-2xl font-bold text-ember">${listing.price.toLocaleString()}</p>
+          <p className="text-2xl font-bold gradient-text">${listing.price.toLocaleString()}</p>
           <button
             onClick={handleSave}
-            className="btn-secondary px-4 py-2 text-sm disabled:opacity-50"
+            className="px-4 py-2 bg-white/50 border border-slate-200 text-slate-700 text-sm font-medium rounded-xl hover:bg-white transition-all disabled:opacity-50"
             disabled={saving}
           >
             {saving ? "Saving..." : "Save to Dashboard"}
           </button>
           <button
             onClick={onClose}
-            className="text-light-300 hover:text-light-50 transition-colors"
+            className="text-slate-400 hover:text-primary transition-colors"
             aria-label="Close"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,19 +150,19 @@ export const ListingDetailDrawer = ({ listing, make, model, year, onClose }: Pro
           <div className="absolute top-4 left-4 flex flex-col gap-2">
             <button
               onClick={() => window.open(listing.vdpUrl, "_blank")}
-              className="px-4 py-2 bg-dark-900/90 border border-dark-600 text-sm font-semibold text-light-50 hover:border-ember/50 transition-all"
+              className="px-4 py-2 bg-white/90 backdrop-blur-sm border border-white/50 text-sm font-semibold text-primary hover:bg-white transition-all rounded-xl"
             >
               View on site →
             </button>
             <button
               onClick={() => alert("Test drive scheduling coming soon!")}
-              className="btn-primary px-4 py-2 text-sm"
+              className="px-4 py-2 bg-gradient-to-r from-mauve to-cyan-light text-primary text-sm font-semibold rounded-xl hover:shadow-lg transition-all"
             >
               Schedule Test Drive
             </button>
           </div>
         </div>
-        <div className="bg-dark-800 p-6 flex flex-col justify-center">
+        <div className="bg-white/30 backdrop-blur-sm p-6 flex flex-col justify-center">
           <DealScoreBadge
             score={dealScore?.score}
             verdict={dealScore?.verdict}
@@ -174,13 +174,13 @@ export const ListingDetailDrawer = ({ listing, make, model, year, onClose }: Pro
       </div>
 
       {/* Tabs */}
-      <div className="px-6 pt-4 border-b border-dark-700">
+      <div className="px-6 pt-4 border-b border-slate-200/50">
         <div className="flex gap-1 overflow-x-auto pb-0">
           {(["overview", "history", "research", "financing"] as DetailTab[]).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`tab-button ${activeTab === tab ? "active" : ""}`}
+              className={`px-4 py-2 text-sm font-medium rounded-t-lg transition-all ${activeTab === tab ? "bg-white/50 text-primary border-b-2 border-mauve" : "text-slate-500 hover:text-primary"}`}
             >
               {tabLabel(tab)}
             </button>
@@ -189,11 +189,11 @@ export const ListingDetailDrawer = ({ listing, make, model, year, onClose }: Pro
       </div>
 
       {/* Content */}
-      <div className="p-6 bg-dark-900">
+      <div className="p-6 bg-white/20">
         {activeTab === "overview" && (
           <div className="space-y-4">
-            <div className="surface p-6">
-              <h3 className="text-lg font-semibold text-light-50 mb-4">At a glance</h3>
+            <div className="bg-white/30 backdrop-blur-sm rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-primary mb-4">At a glance</h3>
               <div className="grid sm:grid-cols-2 gap-4 text-sm">
                 <SpecRow label="Condition" value={`${listing.isNew ? "New" : "Used"}${listing.isCertified ? " • CPO" : ""}`} />
                 <SpecRow label="Mileage" value={`${listing.miles.toLocaleString()} mi`} />
@@ -242,7 +242,7 @@ export const ListingDetailDrawer = ({ listing, make, model, year, onClose }: Pro
 
       {/* Save status notification */}
       {saveStatus && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-dark-800 border border-dark-600 text-light-50 text-sm px-6 py-3 shadow-lg z-50">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm border border-slate-200 text-primary text-sm px-6 py-3 rounded-xl shadow-lg z-50">
           {saveStatus}
         </div>
       )}
@@ -252,9 +252,9 @@ export const ListingDetailDrawer = ({ listing, make, model, year, onClose }: Pro
 
 function SpecRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex justify-between gap-3 py-2 border-b border-dark-700 last:border-0">
-      <span className="text-light-300">{label}</span>
-      <span className="font-medium text-light-50 text-right">{value}</span>
+    <div className="flex justify-between gap-3 py-2 border-b border-slate-200/50 last:border-0">
+      <span className="text-slate-500">{label}</span>
+      <span className="font-medium text-primary text-right">{value}</span>
     </div>
   );
 }
@@ -292,10 +292,10 @@ function DealScoreBadge({
   return (
     <div className="w-full">
       <div className="flex items-center justify-between gap-2 mb-2">
-        <span className="text-sm font-semibold text-light-200">Deal Score</span>
+        <span className="text-sm font-semibold text-slate-600">Deal Score</span>
         <button
           onClick={onRefresh}
-          className="text-xs text-ember hover:text-ember-hover disabled:opacity-50"
+          className="text-xs text-mauve hover:underline disabled:opacity-50"
           disabled={loading}
         >
           {loading ? "Scoring..." : "Refresh"}
@@ -303,13 +303,13 @@ function DealScoreBadge({
       </div>
       <div className="flex items-baseline gap-3 mb-3">
         <span className={`text-4xl font-bold ${color}`}>{score ?? "—"}</span>
-        <span className="text-sm text-light-200">{verdict || "Pending"}</span>
+        <span className="text-sm text-slate-600">{verdict || "Pending"}</span>
       </div>
       {reasons && reasons.length > 0 && (
-        <ul className="space-y-2 text-sm text-light-200">
+        <ul className="space-y-2 text-sm text-slate-600">
           {reasons.slice(0, 3).map((r, i) => (
             <li key={i} className="flex items-start gap-2">
-              <span className="text-ember">•</span>
+              <span className="text-mauve">•</span>
               <span>{r}</span>
             </li>
           ))}
@@ -320,11 +320,11 @@ function DealScoreBadge({
 }
 
 function scoreColor(score?: number) {
-  if (score === undefined) return "text-light-300";
-  if (score >= 85) return "text-green-400";
-  if (score >= 70) return "text-emerald-400";
-  if (score >= 55) return "text-amber-400";
-  return "text-red-400";
+  if (score === undefined) return "text-slate-400";
+  if (score >= 85) return "text-green-600";
+  if (score >= 70) return "text-emerald-600";
+  if (score >= 55) return "text-amber-600";
+  return "text-red-600";
 }
 
 async function handleSaveInternal(
