@@ -7,7 +7,7 @@ const team = [
   {
     name: "Leon Chen",
     role: "CEO & Co-founder",
-    bio: "Leon built AI products at Google and previously scaled an infrastructure startup to $2.5M ARR. After struggling with his own car purchase, he set out to fix a process that hasn't changed in decades.",
+    bio: "Leon built AI products at Google and previously scaled an infrastructure startup to $2.5M ARR. After seeing family and friends struggle with their own car purchase, he set out to fix a process that hasn't changed in decades.",
     photo: leonPhoto,
     photoScale: 1,
   },
