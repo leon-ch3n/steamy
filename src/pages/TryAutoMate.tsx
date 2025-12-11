@@ -386,7 +386,7 @@ export const TryAutoMate = () => {
             <span className="gradient-text">perfect car</span>
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Describe your lifestyle, needs, and budget. Your AI agent will find the best matches and negotiate with dealers on your behalf.
+            Describe your lifestyle, needs, and budget. Your AI agent will find the best matches and provide you with in-depth insights.
           </p>
         </div>
 
