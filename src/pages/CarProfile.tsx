@@ -171,6 +171,13 @@ export const CarProfile = () => {
 
   const handleSelectListing = (listing: any) => {
     setSelectedListing(listing);
+    // Scroll to the detail section after a short delay to allow render
+    setTimeout(() => {
+      const detailSection = document.getElementById('listing-detail');
+      if (detailSection) {
+        detailSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   };
 
   return (
@@ -260,37 +267,35 @@ export const CarProfile = () => {
                 </div>
               </FadeIn>
 
-              {/* Price Stats */}
-              <FadeIn delay={0.1}>
-                <div className="glass-card p-8 md:p-10 h-full flex flex-col justify-center">
-                  {data.marketStats && (
-                    <>
-                      <p className="text-sm text-slate-500 mb-1">Market Price</p>
-                      <p className="text-4xl font-bold gradient-text mb-2">
-                        {formatPrice(data.marketStats.averagePrice)}
-                      </p>
-                      <p className="text-sm text-slate-500 mb-6">
-                        {formatPrice(data.marketStats.minPrice)} - {formatPrice(data.marketStats.maxPrice)}
-                      </p>
-                      <p className="text-xs text-slate-500 mb-6">
-                        Based on {data.totalListings.toLocaleString()} listings
-                      </p>
-                      <div className="pt-6 border-t border-slate-200/50">
-                        <div className="grid grid-cols-2 gap-4 text-sm">
-                          <div>
-                            <span className="text-slate-500">Avg. Mileage</span>
-                            <p className="font-medium text-primary">{data.marketStats.averageMiles?.toLocaleString() || "N/A"} mi</p>
-                          </div>
-                          <div>
-                            <span className="text-slate-500">Days on Market</span>
-                            <p className="font-medium text-primary">{data.marketStats.averageDaysOnMarket || "N/A"}</p>
-                          </div>
+              {/* Price Stats - only show if we have market data */}
+              {data.marketStats && (
+                <FadeIn delay={0.1}>
+                  <div className="glass-card p-8 md:p-10 h-full flex flex-col justify-center">
+                    <p className="text-sm text-slate-500 mb-1">Market Price</p>
+                    <p className="text-4xl font-bold gradient-text mb-2">
+                      {formatPrice(data.marketStats.averagePrice)}
+                    </p>
+                    <p className="text-sm text-slate-500 mb-6">
+                      {formatPrice(data.marketStats.minPrice)} - {formatPrice(data.marketStats.maxPrice)}
+                    </p>
+                    <p className="text-xs text-slate-500 mb-6">
+                      Based on {data.totalListings.toLocaleString()} listings
+                    </p>
+                    <div className="pt-6 border-t border-slate-200/50">
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <span className="text-slate-500">Avg. Mileage</span>
+                          <p className="font-medium text-primary">{data.marketStats.averageMiles?.toLocaleString() || "N/A"} mi</p>
+                        </div>
+                        <div>
+                          <span className="text-slate-500">Days on Market</span>
+                          <p className="font-medium text-primary">{data.marketStats.averageDaysOnMarket || "N/A"}</p>
                         </div>
                       </div>
-                    </>
-                  )}
-                </div>
-              </FadeIn>
+                    </div>
+                  </div>
+                </FadeIn>
+              )}
             </div>
 
             {/* Listings */}
@@ -314,13 +319,15 @@ export const CarProfile = () => {
 
             {/* Inline Listing Detail (not overlay) */}
             {selectedListing && (
-              <ListingDetailDrawer
-                listing={selectedListing}
-                make={make}
-                model={model}
-                year={parseInt(year)}
-                onClose={() => setSelectedListing(null)}
-              />
+              <div id="listing-detail">
+                <ListingDetailDrawer
+                  listing={selectedListing}
+                  make={make}
+                  model={model}
+                  year={parseInt(year)}
+                  onClose={() => setSelectedListing(null)}
+                />
+              </div>
             )}
           </div>
         ) : null}

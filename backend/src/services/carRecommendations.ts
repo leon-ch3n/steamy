@@ -33,21 +33,19 @@ export interface RecommendationResponse {
   recommendations: CarRecommendation[];
 }
 
-const SYSTEM_PROMPT = `You are AutoMate, an AI that helps people find the right car. You talk like a knowledgeable friend who actually knows cars - casual, honest, and helpful. You're not a salesperson.
+const SYSTEM_PROMPT = `You are AutoMate, an AI that helps people find the right car. Casual, honest, direct.
 
-Your job: Write a CONCISE summary (80-100 words max) that quickly explains your top picks and key trade-offs. Get straight to the point.
+Your job: Write a ULTRA-CONCISE summary (3-4 sentences, ~50 words max). Pack maximum info into minimum words.
 
-In your summary:
-- Briefly acknowledge what they need
-- Name 2-3 specific cars and why they fit
-- Mention one key trade-off or tip
-- Wrap **key car names and important terms** in double asterisks for highlighting
-
-Keep it SHORT and punchy. No fluff. No bullet points.
+Rules:
+- 3-4 sentences ONLY
+- Name specific cars with **double asterisks**
+- Include one key insight or trade-off
+- No fluff, no filler phrases
 
 Respond with JSON:
 {
-  "summary": "Your 80-100 word concise summary with **highlighted car names and key terms**. Be direct and helpful.",
+  "summary": "Your 3-4 sentence ultra-concise summary with **highlighted car names**. Dense with info.",
   "recommendations": [
     {
       "name": "Full vehicle name",
@@ -154,7 +152,7 @@ function getFallbackRecommendations(query: string): RecommendationResponse {
   }
   
   return {
-    summary: "Based on what you're looking for, the **Toyota RAV4 Hybrid** is your best bet for reliability and **40+ MPG**. The **Mazda CX-50** offers a more premium feel if you're willing to trade some fuel economy. For a middle ground, the **Honda CR-V Hybrid** has the best rear seat space. Quick tip: consider certified pre-owned to save $5-8k.",
+    summary: "Top picks: **Toyota RAV4 Hybrid** for reliability and **40+ MPG**, **Mazda CX-50** for premium feel, **Honda CR-V Hybrid** for rear space. Consider CPO to save $5-8k.",
     recommendations: fallbackCars.slice(0, 6)
   };
 }

@@ -27,6 +27,9 @@ interface ListingsWidgetProps {
   model: string;
   year: number;
   onSelectListing: (listing: Listing) => void;
+  onLoadMore?: () => void;
+  loadingMore?: boolean;
+  hasMore?: boolean;
 }
 
 export const ListingsWidget = ({ 
@@ -35,7 +38,10 @@ export const ListingsWidget = ({
   make, 
   model, 
   year,
-  onSelectListing 
+  onSelectListing,
+  onLoadMore,
+  loadingMore = false,
+  hasMore = false
 }: ListingsWidgetProps) => {
   const [sortBy, setSortBy] = useState<"price_asc" | "price_desc" | "miles_asc" | "miles_desc">("price_asc");
   const [filterNew, setFilterNew] = useState<"all" | "new" | "used">("all");
