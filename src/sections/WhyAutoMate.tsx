@@ -79,8 +79,10 @@ export const WhyAutoMate = () => {
             <div
               key={feature.title}
               className="group relative bg-white/40 backdrop-blur-2xl rounded-2xl border border-white/60 p-6 sm:p-8 hover:bg-white/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-              style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.1), inset 0 1px 1px 0 rgba(255, 255, 255, 0.4)' }}
-              style={{ animationDelay: `${index * 0.1}s` }}
+              style={{ 
+                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.1), inset 0 1px 1px 0 rgba(255, 255, 255, 0.4)',
+                animationDelay: `${index * 0.1}s` 
+              }}
             >
               {/* Icon */}
               <div
