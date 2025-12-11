@@ -110,16 +110,19 @@ export async function searchListings(
     if (params.sortBy) queryParams.append("sort_by", params.sortBy);
     if (params.sortOrder) queryParams.append("sort_order", params.sortOrder);
 
-    const response = await fetch(
-      `${MARKETCHECK_BASE_URL}/search/car/active?${queryParams.toString()}`
-    );
+    const url = `${MARKETCHECK_BASE_URL}/search/car/active?${queryParams.toString()}`;
+    console.log(`[Marketcheck] Searching listings: make=${params.make}, model=${params.model}, year=${params.year}, zip=${params.zip || 'none'}, radius=${params.radius || 'default'}`);
+    
+    const response = await fetch(url);
 
     if (!response.ok) {
-      console.error("Marketcheck API error:", response.status, await response.text());
+      const errorText = await response.text();
+      console.error(`[Marketcheck] API error ${response.status}: ${errorText}`);
       return { listings: [], total: 0 };
     }
 
     const data = await response.json();
+    console.log(`[Marketcheck] Found ${data.num_found || 0} listings`);
 
     const listings: CarListing[] = (data.listings || []).map((l: Record<string, unknown>) => ({
       id: l.id || "",

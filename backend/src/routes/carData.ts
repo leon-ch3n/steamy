@@ -345,7 +345,11 @@ router.get("/profile/:make/:model/:year", async (req, res) => {
 
     // If zero listings with provided location, widen radius incrementally (keep ZIP) up to 200 miles
     let listingResult = listings;
+    let searchNote: string | undefined;
+    
     if ((listings?.total || 0) === 0 && zip) {
+      console.log(`[CarProfile] No listings found for ${make} ${model} ${year} at ZIP ${zip} with radius ${radius || 50}. Widening search...`);
+      
       const widenSteps = [50, 100, 200];
       for (const r of widenSteps) {
         if (radius && r <= radius) continue;
@@ -357,9 +361,28 @@ router.get("/profile/:make/:model/:year", async (req, res) => {
           zip,
           radius: r,
         });
+        console.log(`[CarProfile] Widened to ${r} miles: found ${widened?.total || 0} listings`);
         if ((widened?.total || 0) > 0) {
           listingResult = widened;
+          searchNote = `Showing listings within ${r} miles`;
           break;
+        }
+      }
+      
+      // If still no results after widening, fall back to nationwide search (no ZIP filter)
+      if ((listingResult?.total || 0) === 0) {
+        console.log(`[CarProfile] No listings found within 200 miles of ZIP ${zip}. Falling back to nationwide search...`);
+        const nationwideResults = await marketcheck.searchListings({
+          make,
+          model,
+          year: yearNum,
+          rows: 10,
+          // No zip or radius - nationwide search
+        });
+        console.log(`[CarProfile] Nationwide search found ${nationwideResults?.total || 0} listings`);
+        if ((nationwideResults?.total || 0) > 0) {
+          listingResult = nationwideResults;
+          searchNote = `No listings near your location. Showing nationwide results.`;
         }
       }
     }
@@ -373,6 +396,7 @@ router.get("/profile/:make/:model/:year", async (req, res) => {
       marketStats,
       sampleListings: listingResult.listings,
       totalListings: listingResult.total,
+      searchNote, // Let frontend know if we had to widen/fall back
     });
   } catch (error) {
     console.error("Error getting car profile:", error);

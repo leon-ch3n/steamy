@@ -41,8 +41,9 @@ export const Hero = ({ children, onPrimaryCTA, onSecondaryCTA }: HeroProps) => {
             
             {/* Subheading */}
             <p className="text-lg sm:text-xl text-slate-600 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              AutoMate researches, negotiates, and closes on your next car — including financing, insurance, and delivery.{" "}
-              <span className="text-primary font-medium">You describe your life. Your agent does the rest.</span>
+              AutoMate makes car buying effortless: it finds the right car, explains every tradeoff, and guides you through the decision from start to finish.
+              <br /><br />
+              <span className="text-primary font-medium">You describe your life. Your agent handles the rest.</span>
             </p>
             
             {/* CTAs */}
@@ -68,25 +69,8 @@ export const Hero = ({ children, onPrimaryCTA, onSecondaryCTA }: HeroProps) => {
               </button>
             </div>
             
-            {/* Trust line */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3 justify-center lg:justify-start text-xs sm:text-sm text-slate-500">
-              <div className="flex -space-x-2">
-                {[...Array(4)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-br from-lavender to-thistle border-2 border-white flex items-center justify-center text-[9px] sm:text-[10px] font-semibold text-primary"
-                  >
-                    {String.fromCharCode(65 + i)}
-                  </div>
-                ))}
-              </div>
-              <span className="text-slate-400 hidden sm:inline">|</span>
-              <span>
-                <span className="font-semibold text-primary">500+</span> on waitlist
-              </span>
-            </div>
-            <p className="text-[11px] sm:text-xs text-slate-400 mt-2 text-center lg:text-left">
-              Built for Gen Z buyers who hate dealerships.
+            <p className="text-[11px] sm:text-xs text-slate-400 text-center lg:text-left">
+              Your AI car-buying expert, finally on your side.
             </p>
           </div>
           

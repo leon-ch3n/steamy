@@ -75,7 +75,7 @@ const capabilities = [
     ),
   },
   {
-    title: "Schedule test drives & delivery",
+    title: "Schedule test drives",
     description:
       "Pull everything together into concrete appointments and delivery or pickup details.",
     icon: (
@@ -101,8 +101,8 @@ export const AgentCapabilities = () => {
             <span className="gradient-text">the car-buying maze.</span>
           </h2>
           <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            AutoMate strings together dozens of tedious workflows — VIN decoding, dealer outreach,
-            price comps, paperwork — into one clean conversation.
+            AutoMate strings together dozens of tedious workflows, VIN decoding, dealer outreach,
+            price comps, paperwork, into one clean conversation.
           </p>
         </div>
 

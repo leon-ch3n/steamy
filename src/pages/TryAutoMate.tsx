@@ -4,6 +4,7 @@ import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { useAuth } from "../contexts/AuthContext";
 import { apiFetch } from "../lib/api";
+import logoImg from "../Screenshot_2025-12-08_at_1.37.15_PM-removebg-preview.png";
 
 const suggestions = [
   "I'm a mom of 4 and need a reliable SUV under $35k",

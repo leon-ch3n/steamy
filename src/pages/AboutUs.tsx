@@ -1,21 +1,22 @@
 import { Link } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
+import lukePhoto from "../luke.png";
+import leonPhoto from "../leon.png";
 
 const team = [
   {
-    name: "Alex Chen",
+    name: "Leon Chen",
     role: "CEO & Co-founder",
-    bio: "Former product lead at a major auto marketplace. Frustrated by the car buying experience, Alex set out to fix it.",
+    bio: "Leon built AI products at Google and previously scaled an infrastructure startup to $2.5M ARR. After struggling with his own car purchase, he set out to fix a process that hasn't changed in decades.",
+    photo: leonPhoto,
+    photoScale: 1,
   },
   {
-    name: "Jordan Rivera",
+    name: "Luke Weinbach",
     role: "CTO & Co-founder",
-    bio: "AI researcher turned entrepreneur. Built the conversational AI that powers AutoMate's understanding of what you really need.",
-  },
-  {
-    name: "Sam Patel",
-    role: "Head of Partnerships",
-    bio: "Spent a decade in automotive retail. Now uses that knowledge to get better deals for AutoMate users.",
+    bio: "Luke researched how large language models reason through complex information at Wolfram. Seeing friends and family struggle with buying a car, he became focused on a simple idea: real intelligence should make the process effortless.",
+    photo: lukePhoto,
+    photoScale: 1.15,
   },
 ];
 
@@ -31,7 +32,7 @@ const values = [
     icon: "⏱️",
   },
   {
-    title: "Your Advocate",
+    title: "We're Your Advocate",
     description: "We work for you, not the dealership. Our AI negotiates to save you money.",
     icon: "🤝",
   },
@@ -57,7 +58,7 @@ export const AboutUs = () => {
         <div className="glass-card p-8 md:p-12 mb-16 animate-slide-up">
           <h2 className="text-2xl font-bold text-primary mb-4">Our Mission</h2>
           <p className="text-lg text-slate-600 leading-relaxed">
-            The traditional car buying experience is broken. It's designed to confuse, pressure, and extract maximum profit from buyers. We're building the alternative: an AI-powered platform that puts you in control. Tell us what you need, and we handle the research, comparison, negotiation, and paperwork—all without you ever having to set foot in a dealership.
+            The traditional car-buying experience is broken. It forces buyers to sift through scattered information, seller-aligned platforms, and endless confusion. AutoMate is the alternative: an AI-powered guide that turns your needs into clear recommendations, pricing context, and next steps, all in one place, so you can buy with confidence instead of chaos.
           </p>
         </div>
 
@@ -71,8 +72,7 @@ export const AboutUs = () => {
                 className="glass-card p-8 text-center animate-slide-up"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="text-4xl mb-4">{value.icon}</div>
-                <h3 className="text-xl font-bold text-primary mb-2">{value.title}</h3>
+                <h3 className="text-xl font-bold text-primary mb-2 italic">{value.title}</h3>
                 <p className="text-slate-600">{value.description}</p>
               </div>
             ))}
@@ -82,16 +82,27 @@ export const AboutUs = () => {
         {/* Team */}
         <div className="mb-16">
           <h2 className="text-2xl font-bold text-primary mb-8 text-center">Meet the Team</h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {team.map((member, index) => (
               <div
                 key={member.name}
                 className="glass-card p-8 animate-slide-up"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-thistle to-mauve mb-4 flex items-center justify-center text-2xl font-bold text-primary">
-                  {member.name.split(" ").map((n) => n[0]).join("")}
-                </div>
+                {member.photo ? (
+                  <div className="w-24 h-24 rounded-full mb-4 overflow-hidden">
+                    <img 
+                      src={member.photo} 
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                      style={{ transform: `scale(${member.photoScale || 1})` }}
+                    />
+                  </div>
+                ) : (
+                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-thistle to-mauve mb-4 flex items-center justify-center text-3xl font-bold text-primary">
+                    {member.name.split(" ").map((n) => n[0]).join("")}
+                  </div>
+                )}
                 <h3 className="text-xl font-bold text-primary">{member.name}</h3>
                 <p className="text-sm text-primary/70 mb-3">{member.role}</p>
                 <p className="text-slate-600 text-sm leading-relaxed">{member.bio}</p>

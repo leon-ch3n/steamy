@@ -7,7 +7,7 @@ const features = [
   {
     title: "End-to-end automation",
     description:
-      "From first search to signed contract, your agent handles research, outreach, negotiation, paperwork, and even delivery scheduling — all under one roof.",
+      "From your first question to your final short list, AutoMate does the heavy lifting on research: it understands your constraints, scans the market, scores options, and explains its picks step-by-step.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -23,7 +23,7 @@ const features = [
   {
     title: "Price intelligence, not guesswork",
     description:
-      "AutoMate compares listings, incentives, and historical pricing across platforms, then pushes dealers toward the best all-in offers for you — not the other way around.",
+      "AutoMate compares listings, incentives, and pricing patterns across platforms to show you what's typical, what's high, and where the real value is. It surfaces the best all-in offers for you, including cars from dealers we don't get paid by.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -39,7 +39,7 @@ const features = [
   {
     title: "Built for real life, not spec sheets",
     description:
-      "Describe your life — commute, budget, who's riding with you — and your agent translates that into concrete car recommendations, trade-in guidance, and financing options.",
+      "Describe your life — your commute, budget, who's riding with you, what stresses you out about buying — and AutoMate translates that into concrete car recommendations, side-by-side comparisons, and next steps.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -60,17 +60,16 @@ export const WhyAutoMate = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide text-accent uppercase bg-white/60 backdrop-blur-sm border border-white/50 mb-4">
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide text-accent uppercase bg-white/40 backdrop-blur-2xl border border-white/60 mb-4" style={{ boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.4)' }}>
             Why AutoMate
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6 leading-tight">
-            Car buying that finally feels
+            Car buying that finally works
             <br />
-            <span className="gradient-text">on your side.</span>
+            <span className="gradient-text">for you, not the system.</span>
           </h2>
           <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            AutoMate blends deep car-market data, real-time dealer negotiation, and AI workflow
-            automation to act like a personal car-buying team — not a lead form.
+            AutoMate is the first AI-powered buying agent that handles the car-purchase workflow on your behalf, from search to test drive & negotiation, using real market data, real dealer outreach, and real automation. No lead forms. No sales pressure. Just outcomes.
           </p>
         </div>
 
@@ -79,7 +78,8 @@ export const WhyAutoMate = () => {
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className="group relative bg-white/60 backdrop-blur-sm rounded-2xl border border-white/50 p-6 sm:p-8 hover:bg-white/80 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group relative bg-white/40 backdrop-blur-2xl rounded-2xl border border-white/60 p-6 sm:p-8 hover:bg-white/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.1), inset 0 1px 1px 0 rgba(255, 255, 255, 0.4)' }}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Icon */}

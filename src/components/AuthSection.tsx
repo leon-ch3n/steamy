@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 
-interface AuthModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+interface AuthSectionProps {
+  onClose?: () => void;
+  onSuccess?: () => void;
+  inline?: boolean;
 }
 
 /**
- * AuthModal - Now implemented as an inline panel instead of a floating modal.
- * Maintains the same API for backwards compatibility but renders inline.
+ * AuthSection - Inline authentication component (replaces modal).
+ * Can be used as a standalone section or embedded in other components.
  */
-export function AuthModal({ isOpen, onClose }: AuthModalProps) {
+export function AuthSection({ onClose, onSuccess, inline = false }: AuthSectionProps) {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,8 +20,6 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [message, setMessage] = useState('');
   
   const { signIn, signUp, signInWithGoogle } = useAuth();
-
-  if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +35,8 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
       } else {
         const { error } = await signIn(email, password);
         if (error) throw error;
-        onClose();
+        onSuccess?.();
+        onClose?.();
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -53,28 +53,35 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20">
-      {/* Backdrop - click to close */}
-      <div 
-        className="absolute inset-0 bg-dark-950/80 backdrop-blur-sm"
-        onClick={onClose}
-      />
-      
-      {/* Panel */}
-      <div className="relative surface-elevated p-8 w-full max-w-md mx-4 animate-slide-up">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-light-300 hover:text-light-50"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+  const containerClass = inline 
+    ? "bg-dark-800 border border-dark-700 p-8"
+    : "bg-dark-900 p-8";
 
-        <h2 className="text-2xl font-bold text-light-50 mb-2">
-          {isSignUp ? 'Create Account' : 'Welcome Back'}
-        </h2>
+  return (
+    <div className={containerClass}>
+      <div className="max-w-md mx-auto">
+        {onClose && (
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-light-50">
+              {isSignUp ? 'Create Account' : 'Welcome Back'}
+            </h2>
+            <button
+              onClick={onClose}
+              className="text-light-300 hover:text-light-50 transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        )}
+        
+        {!onClose && (
+          <h2 className="text-2xl font-bold text-light-50 mb-4">
+            {isSignUp ? 'Create Account' : 'Welcome Back'}
+          </h2>
+        )}
+
         <p className="text-light-200 mb-6">
           {isSignUp 
             ? 'Sign up to save your searches and preferences' 
@@ -84,7 +91,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         {/* Google Sign In */}
         <button
           onClick={handleGoogleSignIn}
-          className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-dark-800 border border-dark-600 text-light-50 font-medium hover:bg-dark-700 transition-colors mb-4"
+          className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-dark-900 border border-dark-600 text-light-50 font-medium hover:bg-dark-700 hover:border-dark-500 transition-colors mb-4"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -100,7 +107,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
             <div className="w-full border-t border-dark-600" />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-4 bg-dark-900 text-light-300">or</span>
+            <span className="px-4 bg-dark-800 text-light-300">or</span>
           </div>
         </div>
 
@@ -163,3 +170,5 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
     </div>
   );
 }
+
+export default AuthSection;
