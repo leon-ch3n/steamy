@@ -31,7 +31,7 @@ export const Landing = () => {
       <Navbar />
       
       {/* Hero Section with AgentDemo */}
-      <Hero onPrimaryCTA={handleGetStarted}>
+      <Hero onPrimaryCTA={handleGetStarted} ctaLabel={user ? "Try Now" : "Get early access"}>
         <AgentDemo />
       </Hero>
 

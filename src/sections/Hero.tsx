@@ -7,13 +7,15 @@ interface HeroProps {
   onPrimaryCTA?: () => void;
   /** Callback for secondary CTA */
   onSecondaryCTA?: () => void;
+  /** Custom CTA button label */
+  ctaLabel?: string;
 }
 
 /**
  * Hero section with premium layout.
  * Accepts children for the interactive content area (search, demo, etc.)
  */
-export const Hero = ({ children, onPrimaryCTA, onSecondaryCTA }: HeroProps) => {
+export const Hero = ({ children, onPrimaryCTA, onSecondaryCTA, ctaLabel = "Get early access" }: HeroProps) => {
   return (
     <section className="min-h-[calc(100vh-4rem)] flex items-center pt-8 pb-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto w-full">
@@ -52,7 +54,7 @@ export const Hero = ({ children, onPrimaryCTA, onSecondaryCTA }: HeroProps) => {
                 onClick={onPrimaryCTA}
                 className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold bg-gradient-to-r from-mauve to-cyan-light text-primary hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2"
               >
-                Get early access
+                {ctaLabel}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
