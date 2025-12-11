@@ -24,9 +24,9 @@ const steps = [
   },
   {
     number: 2,
-    title: "AutoMate hunts, compares, and negotiates",
+    title: "AutoMate hunts, compares, and prepares you",
     description:
-      "Your agent pulls in live listings, incentives, and market data, then negotiates with dealers on your behalf. You see distilled options with clear trade-offs — not sales scripts.",
+      "Your agent pulls in live listings, incentives, and market data. We also share the best negotiation practices ahead of time so you walk into the dealership confident — we don't negotiate for you, we make sure you're ready to.",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path

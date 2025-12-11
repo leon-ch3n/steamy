@@ -28,9 +28,9 @@ const steps = [
   },
   {
     number: "03",
-    title: "We negotiate for you",
+    title: "We prepare you to negotiate",
     description:
-      "AutoMate automatically negotiates with dealers to get you the best possible price. No awkward haggling, no pressure tactics.",
+      "AutoMate shares the best negotiation practices ahead of time so you walk in confident and informed. We don't negotiate for you—we make sure you're ready to get the best deal yourself.",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -42,7 +42,7 @@ const steps = [
     number: "04",
     title: "Complete the deal",
     description:
-      "Financing, insurance, and paperwork—all handled digitally. Schedule your test drive or have the car delivered to your door.",
+      "Schedule your test drive and we'll walk you through your next steps!",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
